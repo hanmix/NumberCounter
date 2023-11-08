@@ -13,6 +13,7 @@
 		7ADEEB742AFC3EED005982A2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7ADEEB732AFC3EED005982A2 /* Preview Assets.xcassets */; };
 		7ADEEB7E2AFC4102005982A2 /* StateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADEEB7D2AFC4102005982A2 /* StateType.swift */; };
 		7ADEEB802AFC41D1005982A2 /* NumberCounterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADEEB7F2AFC41D1005982A2 /* NumberCounterViewModel.swift */; };
+		7ADEEB822AFC43DC005982A2 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADEEB812AFC43DC005982A2 /* MainView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		7ADEEB732AFC3EED005982A2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7ADEEB7D2AFC4102005982A2 /* StateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateType.swift; sourceTree = "<group>"; };
 		7ADEEB7F2AFC41D1005982A2 /* NumberCounterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberCounterViewModel.swift; sourceTree = "<group>"; };
+		7ADEEB812AFC43DC005982A2 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 		7ADEEB7C2AFC4085005982A2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7ADEEB812AFC43DC005982A2 /* MainView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 				7ADEEB802AFC41D1005982A2 /* NumberCounterViewModel.swift in Sources */,
 				7ADEEB7E2AFC4102005982A2 /* StateType.swift in Sources */,
 				7ADEEB6F2AFC3EEB005982A2 /* ContentView.swift in Sources */,
+				7ADEEB822AFC43DC005982A2 /* MainView.swift in Sources */,
 				7ADEEB6D2AFC3EEB005982A2 /* NumberCounterApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
