@@ -23,6 +23,7 @@ final class NumberCounterViewModel: ObservableObject {
     switch type {
     case .plus: return type.value
     case .minus: return type.value
+    case .reset: return type.value
     }
   }
   
