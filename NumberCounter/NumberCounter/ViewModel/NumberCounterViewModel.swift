@@ -33,4 +33,8 @@ final class NumberCounterViewModel: ObservableObject {
   func minus() {
     totalValue -= countValue
   }
+  
+  func reset() {
+    totalValue = 0
+  }
 }
