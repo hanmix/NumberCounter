@@ -77,6 +77,11 @@ struct MainView: View {
       
       Spacer()
     }
+    .alert("숫자를 입력해주세요.", isPresented: $viewModel.isDisplayAlert) {
+      Button("확인", role: .cancel) {
+        viewModel.changeValue = ""
+      }
+    }
   }
 }
 
