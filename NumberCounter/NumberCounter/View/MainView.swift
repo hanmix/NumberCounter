@@ -11,70 +11,73 @@ struct MainView: View {
   @StateObject var viewModel: NumberCounterViewModel
   @FocusState private var isFocused: Bool
   
-    var body: some View {
+  var body: some View {
+    VStack {
+      HStack {
+        Text("Number Counter")
+          .font(.largeTitle.bold())
+        
+        Spacer()
+        
+        ResetButtonView(type: viewModel.getType(.reset)) {
+          viewModel.reset()
+        }
+      }
+      .padding(.horizontal, 20)
+      .padding(.top, 20)
+      
+      Spacer()
+      
       VStack {
         HStack {
-          Text("Number Counter")
-            .font(.largeTitle.bold())
-          
-          Spacer()
-          
-          ResetButtonView(type: viewModel.getType(.reset)) {
-            viewModel.reset()
-          }
-        }
-        .padding(.horizontal, 20)
-        .padding(.top, 20)
-        
-        Spacer()
-        
-        VStack {
-          HStack {
-            TextField("변경할 숫자를 입력해주세요.", text: $viewModel.changeValue)
-              .textFieldStyle(.roundedBorder)
-              .frame(width: 250)
-              .focused($isFocused)
-              .onAppear {
-                isFocused = true
-              }
-            
-            Button {
-              viewModel.changeCountValue()
-            } label: {
-              Text("적용")
-                .font(.footnote.bold())
-            }
+          TextField(
+            "변경할 숫자를 입력해주세요.",
+            text: $viewModel.changeValue
+          )
+          .textFieldStyle(.roundedBorder)
+          .frame(width: 250)
+          .focused($isFocused)
+          .onAppear {
+            isFocused = true
           }
           
-          HStack {
-            Text("Counter: ")
-            
-            Text("\(viewModel.totalValue)")
-          }
-          .font(.title)
-          
-          HStack(spacing: 30) {
-            ButtonActionView(
-              type: viewModel.getType(.plus),
-              countValue: viewModel.countValue,
-              color: .green
-            ) {
-              viewModel.plus()
-            }
-            
-            ButtonActionView(
-              type: viewModel.getType(.minus),
-              countValue: viewModel.countValue,
-              color: .red
-            ) {
-              viewModel.minus()
-            }
+          Button {
+            viewModel.changeCountValue()
+          } label: {
+            Text("적용")
+              .font(.footnote.bold())
           }
         }
         
-        Spacer()
+        HStack {
+          Text("Counter: ")
+          
+          Text("\(viewModel.totalValue)")
+        }
+        .font(.title)
+        
+        HStack(spacing: 30) {
+          ButtonActionView(
+            type: viewModel.getType(.plus),
+            countValue: viewModel.countValue,
+            color: .green
+          ) {
+            viewModel.plus()
+          }
+          
+          ButtonActionView(
+            type: viewModel.getType(.minus),
+            countValue: viewModel.countValue,
+            color: .red
+          ) {
+            viewModel.minus()
+          }
+        }
       }
+      
+      Spacer()
     }
+  }
 }
 
 private struct ButtonActionView: View {
@@ -83,13 +86,16 @@ private struct ButtonActionView: View {
   let color: Color
   let action: () -> Void
   
-  fileprivate  var body: some View {
+  fileprivate var body: some View {
     Text("\(type)\(countValue)")
       .font(.system(size: 20, weight: .bold))
       .foregroundColor(.white)
       .padding(.horizontal, 15)
       .padding(.vertical, 10)
-      .background(color, in: RoundedRectangle(cornerRadius: 20))
+      .background(
+        color,
+        in: RoundedRectangle(cornerRadius: 20)
+      )
       .onTapGesture {
         action()
       }
@@ -105,7 +111,11 @@ private struct ResetButtonView: View {
       .font(.system(size: 20, weight: .bold))
       .foregroundColor(.blue)
       .frame(width: 70, height: 40)
-      .background(.blue, in: RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 2))
+      .background(
+        .blue,
+        in: RoundedRectangle(cornerRadius: 10)
+          .stroke(lineWidth: 2)
+      )
       .onTapGesture {
         action()
       }
@@ -113,7 +123,7 @@ private struct ResetButtonView: View {
 }
 
 struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-      MainView(viewModel: NumberCounterViewModel())
-    }
+  static var previews: some View {
+    MainView(viewModel: NumberCounterViewModel())
+  }
 }
