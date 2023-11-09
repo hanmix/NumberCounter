@@ -32,7 +32,7 @@ struct MainView: View {
         HStack {
           TextField(
             "변경할 숫자를 입력해주세요.",
-            text: $viewModel.changeValue
+            text: $viewModel.model.changeValue
           )
           .textFieldStyle(.roundedBorder)
           .frame(width: 250)
@@ -52,14 +52,14 @@ struct MainView: View {
         HStack {
           Text("Counter: ")
           
-          Text("\(viewModel.totalValue)")
+          Text("\(viewModel.model.totalValue)")
         }
         .font(.title)
         
         HStack(spacing: 30) {
           ButtonActionView(
             type: viewModel.getType(.plus),
-            countValue: viewModel.countValue,
+            countValue: viewModel.model.countValue,
             color: .green
           ) {
             viewModel.plus()
@@ -67,7 +67,7 @@ struct MainView: View {
           
           ButtonActionView(
             type: viewModel.getType(.minus),
-            countValue: viewModel.countValue,
+            countValue: viewModel.model.countValue,
             color: .red
           ) {
             viewModel.minus()
@@ -82,7 +82,7 @@ struct MainView: View {
       isPresented: $viewModel.isDisplayAlert
     ) {
       Button("확인", role: .cancel) {
-        viewModel.changeValue = ""
+        viewModel.model.changeValue = ""
       }
     }
   }
@@ -132,6 +132,16 @@ private struct ResetButtonView: View {
 
 struct MainView_Previews: PreviewProvider {
   static var previews: some View {
-    MainView(viewModel: NumberCounterViewModel())
+    MainView(viewModel:
+              NumberCounterViewModel(
+                model:
+                  NumberCounterModel(
+                    totalValue: 0,
+                    countValue: 10,
+                    changeValue: "",
+                    type: .plus
+                  )
+              )
+    )
   }
 }

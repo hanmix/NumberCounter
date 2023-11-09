@@ -8,24 +8,18 @@
 import SwiftUI
 
 final class NumberCounterViewModel: ObservableObject {
-  @Published var totalValue: Int
-  @Published var countValue: Int
-  @Published var changeValue: String
+  @Published var model: NumberCounterModel
   @Published var isDisplayAlert: Bool
   
   init(
-    totalValue: Int = 0,
-    countValue: Int = 10,
-    changeValue: String = "",
+    model: NumberCounterModel,
     isDisplayAlert: Bool = false
   ) {
-    self.totalValue = totalValue
-    self.countValue = countValue
-    self.changeValue = changeValue
+    self.model = model
     self.isDisplayAlert = isDisplayAlert
   }
   
-  func getType(_ type: StateType) -> String {
+  func getType(_ type: NumberCounterModel.StateType) -> String {
     switch type {
     case .plus: return type.value
     case .minus: return type.value
@@ -34,15 +28,15 @@ final class NumberCounterViewModel: ObservableObject {
   }
   
   func plus() {
-    totalValue += countValue
+    model.totalValue += model.countValue
   }
   
   func minus() {
-    totalValue -= countValue
+    model.totalValue -= model.countValue
   }
   
   func reset() {
-    totalValue = 0
+    model.totalValue = 0
   }
   
   func setIsDisplayAlert(_ isDisplay: Bool) {
@@ -52,12 +46,12 @@ final class NumberCounterViewModel: ObservableObject {
   func changeCountValue() {
     let regexString = /^[0-9]{1,}/
     
-    if !changeValue.contains(regexString) || changeValue.isEmpty {
+    if !model.changeValue.contains(regexString) || model.changeValue.isEmpty {
       setIsDisplayAlert(true)
     } else {
-      if let value = Int(changeValue) {
-        countValue = value
-        changeValue = ""
+      if let value = Int(model.changeValue) {
+        model.countValue = value
+        model.changeValue = ""
       }
     }
   }
