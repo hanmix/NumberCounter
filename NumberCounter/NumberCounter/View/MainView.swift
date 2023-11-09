@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainView: View {
   @StateObject var viewModel: NumberCounterViewModel
+  @FocusState private var isFocused: Bool
   
     var body: some View {
       VStack {
@@ -32,6 +33,10 @@ struct MainView: View {
             TextField("변경할 숫자를 입력해주세요.", text: $viewModel.changeValue)
               .textFieldStyle(.roundedBorder)
               .frame(width: 250)
+              .focused($isFocused)
+              .onAppear {
+                isFocused = true
+              }
             
             Button {
               viewModel.changeCountValue()
