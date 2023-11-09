@@ -10,11 +10,13 @@ import Foundation
 enum StateType {
   case plus
   case minus
+  case reset
   
   var value: String {
     switch self {
     case .plus: return "+"
     case .minus: return "-"
+    case .reset: return "reset"
     }
   }
 }
