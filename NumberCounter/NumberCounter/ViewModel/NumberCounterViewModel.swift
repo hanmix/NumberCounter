@@ -11,15 +11,18 @@ final class NumberCounterViewModel: ObservableObject {
   @Published var totalValue: Int
   @Published var countValue: Int
   @Published var changeValue: String
+  @Published var isDisplayAlert: Bool
   
   init(
     totalValue: Int = 0,
     countValue: Int = 10,
-    changeValue: String = ""
+    changeValue: String = "",
+    isDisplayAlert: Bool = false
   ) {
     self.totalValue = totalValue
     self.countValue = countValue
     self.changeValue = changeValue
+    self.isDisplayAlert = isDisplayAlert
   }
   
   func getType(_ type: StateType) -> String {
@@ -42,10 +45,20 @@ final class NumberCounterViewModel: ObservableObject {
     totalValue = 0
   }
   
+  func setIsDisplayAlert(_ isDisplay: Bool) {
+    isDisplayAlert = isDisplay
+  }
+  
   func changeCountValue() {
-    if let value = Int(changeValue) {
-      countValue = value
-      changeValue = ""
+    let regexString = /^[0-9]{1,}/
+    
+    if !changeValue.contains(regexString) || changeValue.isEmpty {
+      setIsDisplayAlert(true)
+    } else {
+      if let value = Int(changeValue) {
+        countValue = value
+        changeValue = ""
+      }
     }
   }
 }
