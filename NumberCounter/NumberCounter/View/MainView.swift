@@ -27,20 +27,43 @@ struct MainView: View {
         
         Spacer()
         
-        HStack {
-          Text("Counter: ")
-          
-          Text("\(viewModel.totalValue)")
-        }
-        .font(.title)
-        
-        HStack(spacing: 30) {
-          ButtonActionView(type: viewModel.getType(.plus), countValue: viewModel.countValue, color: .green) {
-            viewModel.plus()
+        VStack {
+          HStack {
+            TextField("변경할 숫자를 입력해주세요.", text: $viewModel.changeValue)
+              .textFieldStyle(.roundedBorder)
+              .frame(width: 250)
+            
+            Button {
+              viewModel.changeCountValue()
+            } label: {
+              Text("적용")
+                .font(.footnote.bold())
+            }
           }
           
-          ButtonActionView(type: viewModel.getType(.minus), countValue: viewModel.countValue, color: .red) {
-            viewModel.minus()
+          HStack {
+            Text("Counter: ")
+            
+            Text("\(viewModel.totalValue)")
+          }
+          .font(.title)
+          
+          HStack(spacing: 30) {
+            ButtonActionView(
+              type: viewModel.getType(.plus),
+              countValue: viewModel.countValue,
+              color: .green
+            ) {
+              viewModel.plus()
+            }
+            
+            ButtonActionView(
+              type: viewModel.getType(.minus),
+              countValue: viewModel.countValue,
+              color: .red
+            ) {
+              viewModel.minus()
+            }
           }
         }
         
