@@ -17,6 +17,10 @@ struct MainView: View {
             .font(.largeTitle.bold())
           
           Spacer()
+          
+          ResetButtonView(type: viewModel.getType(.reset)) {
+            viewModel.reset()
+          }
         }
         .padding(.horizontal, 20)
         .padding(.top, 20)
@@ -58,6 +62,22 @@ private struct ButtonActionView: View {
       .padding(.horizontal, 15)
       .padding(.vertical, 10)
       .background(color, in: RoundedRectangle(cornerRadius: 20))
+      .onTapGesture {
+        action()
+      }
+  }
+}
+
+private struct ResetButtonView: View {
+  let type: String
+  let action: () -> Void
+  
+  fileprivate var body: some View {
+    Text(type)
+      .font(.system(size: 20, weight: .bold))
+      .foregroundColor(.blue)
+      .frame(width: 70, height: 40)
+      .background(.blue, in: RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 2))
       .onTapGesture {
         action()
       }
