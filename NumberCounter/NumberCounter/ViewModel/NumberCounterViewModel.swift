@@ -10,13 +10,16 @@ import SwiftUI
 final class NumberCounterViewModel: ObservableObject {
   @Published var totalValue: Int
   @Published var countValue: Int
+  @Published var changeValue: String
   
   init(
     totalValue: Int = 0,
-    countValue: Int = 10
+    countValue: Int = 10,
+    changeValue: String = ""
   ) {
     self.totalValue = totalValue
     self.countValue = countValue
+    self.changeValue = changeValue
   }
   
   func getType(_ type: StateType) -> String {
@@ -37,5 +40,12 @@ final class NumberCounterViewModel: ObservableObject {
   
   func reset() {
     totalValue = 0
+  }
+  
+  func changeCountValue() {
+    if let value = Int(changeValue) {
+      countValue = value
+      changeValue = ""
+    }
   }
 }
