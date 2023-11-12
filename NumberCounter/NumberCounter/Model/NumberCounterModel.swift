@@ -22,7 +22,7 @@ struct NumberCounterModel {
       switch self {
       case .plus: return "+"
       case .minus: return "-"
-      case .reset: return "reset"
+      case .reset: return "arrow.clockwise.circle"
       }
     }
   }
