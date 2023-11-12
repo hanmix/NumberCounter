@@ -13,48 +13,18 @@ struct MainView: View {
   
   var body: some View {
     VStack {
-      HStack {
-        Text("Number Counter")
-          .font(.largeTitle.bold())
-        
-        Spacer()
-        
-        ResetButtonView(type: viewModel.getType(.reset)) {
-          viewModel.reset()
-        }
-      }
-      .padding(.horizontal, 20)
-      .padding(.top, 20)
+      TitleResetButtonView(viewModel: viewModel)
       
       Spacer()
       
       VStack {
-        HStack {
-          TextField(
-            "변경할 숫자를 입력해주세요.",
-            text: $viewModel.model.changeValue
-          )
-          .textFieldStyle(.roundedBorder)
-          .frame(width: 250)
+        TextFieldButtonView(viewModel: viewModel)
           .focused($isFocused)
           .onAppear {
             isFocused = true
           }
-          
-          Button {
-            viewModel.changeCountValue()
-          } label: {
-            Text("적용")
-              .font(.footnote.bold())
-          }
-        }
         
-        HStack {
-          Text("Counter: ")
-          
-          Text("\(viewModel.model.totalValue)")
-        }
-        .font(.title)
+        CounterTextView(viewModel: viewModel)
         
         HStack(spacing: 30) {
           ButtonActionView(
@@ -85,6 +55,61 @@ struct MainView: View {
         viewModel.model.changeValue = ""
       }
     }
+  }
+}
+
+private struct TitleResetButtonView: View {
+  @ObservedObject var viewModel: NumberCounterViewModel
+  
+  fileprivate var body: some View {
+    HStack {
+      Text("Number Counter")
+        .font(.largeTitle.bold())
+      
+      Spacer()
+      
+      ResetButtonView(type: viewModel.getType(.reset)) {
+        viewModel.reset()
+      }
+    }
+    .padding(.horizontal, 20)
+    .padding(.top, 20)
+  }
+}
+
+private struct TextFieldButtonView: View {
+  @ObservedObject var viewModel: NumberCounterViewModel
+  
+  fileprivate var body: some View {
+    HStack {
+      TextField(
+        "변경할 숫자를 입력해주세요.",
+        text: $viewModel.model.changeValue
+      )
+      .textFieldStyle(.roundedBorder)
+      .frame(width: 250)
+      .keyboardType(.numberPad)
+      
+      Button {
+        viewModel.changeCountValue()
+      } label: {
+        Text("적용")
+          .font(.footnote.bold())
+      }
+    }
+  }
+}
+
+private struct CounterTextView: View {
+  @ObservedObject var viewModel: NumberCounterViewModel
+  
+  fileprivate var body: some View {
+    HStack {
+      Text("Counter: ")
+      
+      Text("\(viewModel.model.totalValue)")
+    }
+    .font(.title)
   }
 }
 
@@ -119,18 +144,22 @@ private struct ButtonActionView: View {
 }
 
 private struct ResetButtonView: View {
+  @State private var isRotated: Bool = false
   let type: String
   let action: () -> Void
   
   fileprivate var body: some View {
     Button {
       action()
+      isRotated.toggle()
     } label: {
       Image(systemName: type)
         .resizable()
         .scaledToFit()
         .frame(width: 30, height: 30)
         .foregroundColor(.blue)
+        .rotationEffect(.degrees(isRotated ? 360 : 0))
+        .animation(.linear(duration: 0.5), value: isRotated)
     }
     .buttonStyle(ScaleEffectButtonStyle())
   }
@@ -145,16 +174,6 @@ struct ScaleEffectButtonStyle: ButtonStyle {
 
 struct MainView_Previews: PreviewProvider {
   static var previews: some View {
-    MainView(viewModel:
-              NumberCounterViewModel(
-                model:
-                  NumberCounterModel(
-                    totalValue: 0,
-                    countValue: 10,
-                    changeValue: "",
-                    type: .plus
-                  )
-              )
-    )
+    MainView(viewModel: NumberCounterViewModel())
   }
 }
