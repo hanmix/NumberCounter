@@ -89,6 +89,7 @@ struct MainView: View {
 }
 
 private struct ButtonActionView: View {
+  @State private var isPressed: Bool = false
   let type: String
   let countValue: Int
   let color: Color
@@ -104,8 +105,15 @@ private struct ButtonActionView: View {
         color,
         in: RoundedRectangle(cornerRadius: 20)
       )
+      .scaleEffect(isPressed ? 1.2 : 1)
       .onTapGesture {
         action()
+        withAnimation {
+          isPressed = true
+          DispatchQueue.main.async {
+            isPressed = false
+          }
+        }
       }
   }
 }
@@ -115,18 +123,23 @@ private struct ResetButtonView: View {
   let action: () -> Void
   
   fileprivate var body: some View {
-    Text(type)
-      .font(.system(size: 20, weight: .bold))
-      .foregroundColor(.blue)
-      .frame(width: 70, height: 40)
-      .background(
-        .blue,
-        in: RoundedRectangle(cornerRadius: 10)
-          .stroke(lineWidth: 2)
-      )
-      .onTapGesture {
-        action()
-      }
+    Button {
+      action()
+    } label: {
+      Image(systemName: type)
+        .resizable()
+        .scaledToFit()
+        .frame(width: 30, height: 30)
+        .foregroundColor(.blue)
+    }
+    .buttonStyle(ScaleEffectButtonStyle())
+  }
+}
+
+struct ScaleEffectButtonStyle: ButtonStyle {
+  func makeBody(configuration: Configuration) -> some View {
+    configuration.label
+      .scaleEffect(configuration.isPressed ? 0.8 : 1)
   }
 }
 
