@@ -12,7 +12,12 @@ final class NumberCounterViewModel: ObservableObject {
   @Published var isDisplayAlert: Bool
   
   init(
-    model: NumberCounterModel,
+    model: NumberCounterModel = NumberCounterModel(
+      totalValue: 0,
+      countValue: 10,
+      changeValue: "",
+      type: .plus
+    ),
     isDisplayAlert: Bool = false
   ) {
     self.model = model
