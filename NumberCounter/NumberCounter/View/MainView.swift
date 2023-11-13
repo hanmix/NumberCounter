@@ -88,7 +88,7 @@ private struct TextFieldButtonView: View {
       )
       .textFieldStyle(.roundedBorder)
       .frame(width: 250)
-      .keyboardType(.numberPad)
+      .keyboardType(.numbersAndPunctuation)
       
       Button {
         withAnimation {
@@ -109,7 +109,7 @@ private struct CounterTextView: View {
     HStack {
       Text("Counter: ")
       
-      Text("\(viewModel.model.totalValue)")
+      Text("\(viewModel.model.totalValue.formatted(.number))")
         .monospacedDigit()
     }
     .font(.title)
@@ -119,12 +119,12 @@ private struct CounterTextView: View {
 private struct ButtonActionView: View {
   @State private var isPressed: Bool = false
   let type: String
-  let countValue: Int
+  let countValue: Double
   let color: Color
   let action: () -> Void
   
   fileprivate var body: some View {
-    Text("\(type)\(countValue)")
+    Text("\(type)\(countValue.formatted(.number))")
       .font(.system(size: 20, weight: .bold))
       .foregroundColor(.white)
       .padding(.horizontal, 15)
