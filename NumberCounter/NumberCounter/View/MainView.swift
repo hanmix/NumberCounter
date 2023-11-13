@@ -17,7 +17,7 @@ struct MainView: View {
       
       Spacer()
       
-      VStack {
+      VStack(alignment: .leading, spacing: 30) {
         TextFieldButtonView(viewModel: viewModel)
           .focused($isFocused)
           .onAppear {
@@ -91,7 +91,9 @@ private struct TextFieldButtonView: View {
       .keyboardType(.numberPad)
       
       Button {
-        viewModel.changeCountValue()
+        withAnimation {
+          viewModel.changeCountValue()
+        }
       } label: {
         Text("적용")
           .font(.footnote.bold())
@@ -108,6 +110,7 @@ private struct CounterTextView: View {
       Text("Counter: ")
       
       Text("\(viewModel.model.totalValue)")
+        .monospacedDigit()
     }
     .font(.title)
   }
@@ -150,8 +153,10 @@ private struct ResetButtonView: View {
   
   fileprivate var body: some View {
     Button {
-      action()
-      isRotated.toggle()
+      withAnimation(.easeInOut) {
+        action()
+        isRotated.toggle()
+      }
     } label: {
       Image(systemName: type)
         .resizable()
@@ -159,7 +164,6 @@ private struct ResetButtonView: View {
         .frame(width: 30, height: 30)
         .foregroundColor(.blue)
         .rotationEffect(.degrees(isRotated ? 360 : 0))
-        .animation(.linear(duration: 0.5), value: isRotated)
     }
     .buttonStyle(ScaleEffectButtonStyle())
   }
