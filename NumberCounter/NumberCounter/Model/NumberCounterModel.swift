@@ -8,8 +8,8 @@
 import Foundation
 
 struct NumberCounterModel {
-  var totalValue: Int
-  var countValue: Int
+  var totalValue: Double
+  var countValue: Double
   var changeValue: String
   var type: StateType
   
