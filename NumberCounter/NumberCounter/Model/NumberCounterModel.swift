@@ -14,6 +14,18 @@ struct NumberCounterModel {
   var changeValue: String
   var type: StateType
   
+  init(
+    totalValue: Double = 0.0,
+    countValue: Double = 10.0,
+    changeValue: String = "",
+    type: StateType = .plus
+  ) {
+    self.totalValue = totalValue
+    self.countValue = countValue
+    self.changeValue = changeValue
+    self.type = type
+  }
+  
   enum StateType {
     case plus
     case minus
