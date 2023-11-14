@@ -32,6 +32,14 @@ final class NumberCounterViewModel: ObservableObject {
     }
   }
   
+  func getColor(_ type: NumberCounterModel.StateType) -> Color {
+    switch type {
+    case .plus: return type.color
+    case .minus: return type.color
+    case .reset: return type.color
+    }
+  }
+  
   func plus() {
     model.totalValue += model.countValue
   }

@@ -30,7 +30,7 @@ struct MainView: View {
           ButtonActionView(
             type: viewModel.getType(.plus),
             countValue: viewModel.model.countValue,
-            color: .green
+            color: viewModel.getColor(.plus)
           ) {
             viewModel.plus()
           }
@@ -38,7 +38,7 @@ struct MainView: View {
           ButtonActionView(
             type: viewModel.getType(.minus),
             countValue: viewModel.model.countValue,
-            color: .red
+            color: viewModel.getColor(.minus)
           ) {
             viewModel.minus()
           }
@@ -68,7 +68,10 @@ private struct TitleResetButtonView: View {
       
       Spacer()
       
-      ResetButtonView(type: viewModel.getType(.reset)) {
+      ResetButtonView(
+        type: viewModel.getType(.reset),
+        color: viewModel.getColor(.reset)
+      ) {
         viewModel.reset()
       }
     }
@@ -149,6 +152,7 @@ private struct ButtonActionView: View {
 private struct ResetButtonView: View {
   @State private var isRotated: Bool = false
   let type: String
+  let color: Color
   let action: () -> Void
   
   fileprivate var body: some View {
@@ -162,7 +166,7 @@ private struct ResetButtonView: View {
         .resizable()
         .scaledToFit()
         .frame(width: 30, height: 30)
-        .foregroundColor(.blue)
+        .foregroundColor(color)
         .rotationEffect(.degrees(isRotated ? 360 : 0))
     }
     .buttonStyle(ScaleEffectButtonStyle())

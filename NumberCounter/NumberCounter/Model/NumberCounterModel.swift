@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct NumberCounterModel {
   var totalValue: Double
@@ -23,6 +24,14 @@ struct NumberCounterModel {
       case .plus: return "+"
       case .minus: return "-"
       case .reset: return "arrow.clockwise.circle"
+      }
+    }
+    
+    var color: Color {
+      switch self {
+      case .plus: return .green
+      case .minus: return .red
+      case .reset: return .blue
       }
     }
   }
