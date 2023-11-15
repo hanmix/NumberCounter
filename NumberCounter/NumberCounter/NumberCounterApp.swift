@@ -12,7 +12,6 @@ struct NumberCounterApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-            .environmentObject(NumberCounterViewModel())
         }
     }
 }
