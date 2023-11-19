@@ -18,11 +18,10 @@ struct MainView: View {
       Spacer()
       
       VStack(alignment: .leading, spacing: 30) {
-        TextFieldButtonView(viewModel: viewModel)
-          .focused($isFocused)
-          .onAppear {
-            isFocused = true
-          }
+        TextFieldButtonView(
+          viewModel: viewModel,
+          isFocused: $isFocused
+        )
         
         CounterTextView(viewModel: viewModel)
         
@@ -82,6 +81,7 @@ private struct TitleResetButtonView: View {
 
 private struct TextFieldButtonView: View {
   @ObservedObject var viewModel: NumberCounterViewModel
+  var isFocused: FocusState<Bool>.Binding
   
   fileprivate var body: some View {
     HStack {
@@ -92,6 +92,10 @@ private struct TextFieldButtonView: View {
       .textFieldStyle(.roundedBorder)
       .frame(width: 250)
       .keyboardType(.numbersAndPunctuation)
+      .focused(isFocused)
+      .onAppear {
+        isFocused.wrappedValue = true
+      }
       
       Button {
         withAnimation {
