@@ -52,9 +52,8 @@ final class NumberCounterViewModel: ObservableObject {
   }
   
   func changeCountValue() {
-    let regexString = /^[0-9]{1,}+[\.]+[0-9]{1,}$/
-//    let regexString2 = /^([\.]?[0-9]){1,}$/
-    
+    let regexString = /^[0-9]{1,}[\.]?[0-9]{1,}$/
+
     if !model.changeValue.contains(regexString) || model.changeValue.isEmpty {
       setIsDisplayAlert(true)
     } else {
